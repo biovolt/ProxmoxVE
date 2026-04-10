@@ -14,7 +14,9 @@ network_check
 update_os
 
 msg_info "Installing Dependencies"
-$STD apt-get install -y git ca-certificates
+$STD apt-get install -y git ca-certificates locales
+sed -i '/en_US.UTF-8/s/^# //' /etc/locale.gen
+$STD locale-gen
 msg_ok "Installed Dependencies"
 
 msg_info "Setting up Python"
