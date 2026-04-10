@@ -32,12 +32,10 @@ msg_ok "Set up FFmpeg"
 msg_info "Cloning OpenMontage"
 cd / || true
 $STD git clone https://github.com/calesthio/OpenMontage /opt/openmontage
-RELEASE=$(curl -fsSL https://api.github.com/repos/calesthio/OpenMontage/releases/latest \
-  | grep '"tag_name":' | sed -E 's/.*"([^"]+)".*/\1/')
+RELEASE=$(curl -s https://api.github.com/repos/calesthio/OpenMontage/releases/latest | grep '"tag_name":' | sed -E 's/.*"([^"]+)".*/\1/' || true)
 if [[ -z "${RELEASE}" ]]; then
   RELEASE=$(git -C /opt/openmontage rev-parse --short HEAD)
-fi
-if [[ -n "${RELEASE}" ]]; then
+else
   $STD git -C /opt/openmontage checkout "${RELEASE}"
 fi
 { git -C /opt/openmontage describe --tags --exact-match 2>/dev/null || git -C /opt/openmontage rev-parse --short HEAD; } >/opt/OpenMontage_version.txt
