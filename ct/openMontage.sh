@@ -73,11 +73,17 @@ pct set "$CTID" -description "${EXISTING_DESC}
 <hr/>
 <h3>How to Use</h3>
 <p>OpenMontage is an <b>agentic video production system</b> — you control it through an AI coding assistant (Claude Code, Cursor, Copilot, etc.) connected to the container.</p>
-<ol>
-<li>SSH into the container: <code>ssh root@LXC_IP</code></li>
-<li>Open <code>/opt/openmontage</code> in your AI coding assistant</li>
-<li>Tell it what you want, e.g.:<br/><i>\"Make a 60-second animated explainer about how neural networks learn\"</i></li>
-</ol>
+<h4>Connect with Claude Code</h4>
+<pre>claude ssh root@LXC_IP --directory /opt/openmontage</pre>
+<p>Or SSH in and run Claude Code directly:</p>
+<pre>ssh root@LXC_IP
+cd /opt/openmontage
+claude</pre>
+<h4>Connect with other AI assistants</h4>
+<p>SSH into the container, then open <code>/opt/openmontage</code> in Cursor, Copilot, or Windsurf via remote SSH.</p>
+<h4>Create a video</h4>
+<p>Tell your assistant what you want:</p>
+<pre>\"Make a 60-second animated explainer about how neural networks learn\"</pre>
 <p>The agent handles research, scripting, asset generation, editing, and final composition. No web UI or exposed ports needed.</p>
 <h3>Service Management</h3>
 <ul>
