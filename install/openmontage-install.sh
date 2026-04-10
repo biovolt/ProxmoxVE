@@ -30,6 +30,7 @@ FFMPEG_TYPE="full" setup_ffmpeg
 msg_ok "Set up FFmpeg"
 
 msg_info "Cloning OpenMontage"
+cd / || true
 $STD git clone https://github.com/calesthio/OpenMontage /opt/openmontage
 RELEASE=$(curl -fsSL https://api.github.com/repos/calesthio/OpenMontage/releases/latest \
   | grep '"tag_name":' | sed -E 's/.*"([^"]+)".*/\1/')
