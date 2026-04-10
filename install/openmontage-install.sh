@@ -98,24 +98,9 @@ PYEOF
 fi
 msg_ok "Configured Environment"
 
-msg_info "Creating Service"
-cat <<'EOF' >/etc/systemd/system/openmontage.service
-[Unit]
-Description=OpenMontage Video Production
-After=network.target
-
-[Service]
-Type=simple
-WorkingDirectory=/opt/openmontage
-ExecStart=/opt/openmontage/.venv/bin/python main.py
-Restart=on-failure
-RestartSec=5
-
-[Install]
-WantedBy=multi-user.target
-EOF
-systemctl enable -q --now openmontage
-msg_ok "Created Service"
+msg_info "Installing Claude Code"
+$STD npm install -g @anthropic-ai/claude-code
+msg_ok "Installed Claude Code"
 
 motd_ssh
 customize

@@ -73,35 +73,25 @@ pct set "$CTID" -description "${EXISTING_DESC}
 <hr/>
 <h3>How to Use</h3>
 <p>OpenMontage is an <b>agentic video production system</b> — you control it through an AI coding assistant (Claude Code, Cursor, Copilot, etc.) connected to the container.</p>
-<h4>Connect with Claude Code</h4>
-<pre>claude ssh root@LXC_IP --directory /opt/openmontage</pre>
-<p>Or SSH in and run Claude Code directly:</p>
+<h4>Connect</h4>
+<p>Claude Code is pre-installed. SSH into the container and start:</p>
 <pre>ssh root@LXC_IP
 cd /opt/openmontage
 claude</pre>
-<h4>Connect with other AI assistants</h4>
-<p>SSH into the container, then open <code>/opt/openmontage</code> in Cursor, Copilot, or Windsurf via remote SSH.</p>
+<p>Or use Cursor, Copilot, or Windsurf via remote SSH to <code>/opt/openmontage</code>.</p>
 <h4>Create a video</h4>
 <p>Tell your assistant what you want:</p>
 <pre>\"Make a 60-second animated explainer about how neural networks learn\"</pre>
 <p>The agent handles research, scripting, asset generation, editing, and final composition. No web UI or exposed ports needed.</p>
-<h3>Service Management</h3>
-<ul>
-<li><b>Status:</b> <code>systemctl status openmontage</code></li>
-<li><b>Logs:</b> <code>journalctl -u openmontage -f</code></li>
-<li><b>Restart:</b> <code>systemctl restart openmontage</code></li>
-</ul>
 <h3>API Keys (optional)</h3>
 <p>Works without keys using Piper TTS + free stock media. For premium providers (~\$0.15-\$1.50/video):</p>
 <ol>
 <li><code>nano /opt/openmontage/.env</code></li>
 <li>Uncomment and fill in: <b>FAL_KEY</b>, <b>ELEVENLABS_API_KEY</b>, <b>OPENAI_API_KEY</b></li>
-<li><code>systemctl restart openmontage</code></li>
 </ol>
 <p><b>Docs:</b> <a href='https://github.com/calesthio/OpenMontage'>github.com/calesthio/OpenMontage</a></p>" 2>/dev/null || true
 
 msg_ok "Completed Successfully!\n"
 echo -e "${CREATING}${GN}${APP} setup has been successfully initialized!${CL}"
-echo -e "${INFO}${YW} OpenMontage is running (systemctl status openmontage)${CL}"
-echo -e "${INFO}${YW} Use via AI coding assistant: ssh root@LXC_IP, open /opt/openmontage${CL}"
+echo -e "${INFO}${YW} SSH in and run: cd /opt/openmontage && claude${CL}"
 echo -e "${INFO}${YW} API keys (optional): nano /opt/openmontage/.env${CL}"
