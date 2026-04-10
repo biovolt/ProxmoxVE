@@ -55,6 +55,10 @@ function update_script() {
     $STD npm install
     msg_ok "Reinstalled Node.js dependencies"
 
+    msg_info "Updating Claude Code"
+    $STD npm install -g @anthropic-ai/claude-code
+    msg_ok "Updated Claude Code"
+
     { git -C /opt/openmontage describe --tags --exact-match 2>/dev/null || git -C /opt/openmontage rev-parse --short HEAD; } >/opt/OpenMontage_version.txt
     msg_ok "Updated ${APP} to ${RELEASE}"
   else
