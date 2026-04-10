@@ -67,11 +67,23 @@ start
 build_container
 description
 
-# Append API key instructions to the Proxmox container notes
-pct set "$CTID" -description "$(pct config "$CTID" | sed -n 's/^description: //p' | sed 's/%0A/\n/g')
-<p><b>API Keys:</b> <code>nano /opt/openmontage/.env</code><br/>Supports: FAL_KEY, ELEVENLABS_API_KEY, OPENAI_API_KEY</p>"
+# Append usage instructions to the Proxmox container notes
+EXISTING_DESC=$(pct config "$CTID" 2>/dev/null | sed -n 's/^description: //p' | sed 's/%0A/\n/g')
+pct set "$CTID" -description "${EXISTING_DESC}
+<hr/>
+<h3>Getting Started</h3>
+<ol>
+<li>SSH into the container: <code>ssh root@\$(hostname -I)</code></li>
+<li>Add API keys: <code>nano /opt/openmontage/.env</code><br/>
+Supported: <b>FAL_KEY</b>, <b>ELEVENLABS_API_KEY</b>, <b>OPENAI_API_KEY</b><br/>
+Uncomment and fill in the keys you want to use. Works without any keys using Piper TTS + free stock media.</li>
+<li>Activate Python env: <code>source /opt/openmontage/.venv/bin/activate</code></li>
+<li>Run OpenMontage: <code>cd /opt/openmontage && python main.py</code></li>
+</ol>
+<p><b>Docs:</b> <a href='https://github.com/calesthio/OpenMontage'>github.com/calesthio/OpenMontage</a></p>" 2>/dev/null || true
 
 msg_ok "Completed Successfully!\n"
 echo -e "${CREATING}${GN}${APP} setup has been successfully initialized!${CL}"
 echo -e "${INFO}${YW} Add your API keys: nano /opt/openmontage/.env${CL}"
 echo -e "${INFO}${YW} Supported: FAL_KEY, ELEVENLABS_API_KEY, OPENAI_API_KEY${CL}"
+echo -e "${INFO}${YW} Run: cd /opt/openmontage && source .venv/bin/activate && python main.py${CL}"
