@@ -96,6 +96,25 @@ PYEOF
 fi
 msg_ok "Configured Environment"
 
+msg_info "Creating Service"
+cat <<'EOF' >/etc/systemd/system/openmontage.service
+[Unit]
+Description=OpenMontage Video Production
+After=network.target
+
+[Service]
+Type=simple
+WorkingDirectory=/opt/openmontage
+ExecStart=/opt/openmontage/.venv/bin/python main.py
+Restart=on-failure
+RestartSec=5
+
+[Install]
+WantedBy=multi-user.target
+EOF
+systemctl enable -q --now openmontage
+msg_ok "Created Service"
+
 motd_ssh
 customize
 cleanup_lxc
