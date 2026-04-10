@@ -72,18 +72,23 @@ EXISTING_DESC=$(pct config "$CTID" 2>/dev/null | sed -n 's/^description: //p' | 
 pct set "$CTID" -description "${EXISTING_DESC}
 <hr/>
 <h3>Getting Started</h3>
+<p>OpenMontage starts automatically on boot via systemd.</p>
+<ul>
+<li><b>Status:</b> <code>systemctl status openmontage</code></li>
+<li><b>Logs:</b> <code>journalctl -u openmontage -f</code></li>
+<li><b>Restart:</b> <code>systemctl restart openmontage</code></li>
+</ul>
+<h3>API Keys (optional)</h3>
+<p>Works without keys using Piper TTS + free stock media. For premium providers:</p>
 <ol>
-<li>SSH into the container: <code>ssh root@\$(hostname -I)</code></li>
-<li>Add API keys: <code>nano /opt/openmontage/.env</code><br/>
-Supported: <b>FAL_KEY</b>, <b>ELEVENLABS_API_KEY</b>, <b>OPENAI_API_KEY</b><br/>
-Uncomment and fill in the keys you want to use. Works without any keys using Piper TTS + free stock media.</li>
-<li>Activate Python env: <code>source /opt/openmontage/.venv/bin/activate</code></li>
-<li>Run OpenMontage: <code>cd /opt/openmontage && python main.py</code></li>
+<li><code>nano /opt/openmontage/.env</code></li>
+<li>Uncomment and fill in: <b>FAL_KEY</b>, <b>ELEVENLABS_API_KEY</b>, <b>OPENAI_API_KEY</b></li>
+<li><code>systemctl restart openmontage</code></li>
 </ol>
 <p><b>Docs:</b> <a href='https://github.com/calesthio/OpenMontage'>github.com/calesthio/OpenMontage</a></p>" 2>/dev/null || true
 
 msg_ok "Completed Successfully!\n"
 echo -e "${CREATING}${GN}${APP} setup has been successfully initialized!${CL}"
-echo -e "${INFO}${YW} Add your API keys: nano /opt/openmontage/.env${CL}"
+echo -e "${INFO}${YW} OpenMontage is running (systemctl status openmontage)${CL}"
+echo -e "${INFO}${YW} API keys (optional): nano /opt/openmontage/.env${CL}"
 echo -e "${INFO}${YW} Supported: FAL_KEY, ELEVENLABS_API_KEY, OPENAI_API_KEY${CL}"
-echo -e "${INFO}${YW} Run: cd /opt/openmontage && source .venv/bin/activate && python main.py${CL}"
